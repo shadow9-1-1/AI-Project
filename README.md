@@ -1,2 +1,2 @@
 # AI-Project
-AI Project for fall 26 
+AI Project for fall 25
