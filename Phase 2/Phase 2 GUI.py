@@ -478,17 +478,7 @@ class AlphaBetaAgent:
     
 
 class ConnectFourGUI:
-    """
-    Professional GUI for Connect Four game with AI opponent.
-    Features:
-    - Interactive board with mouse clicks
-    - Difficulty selection (depth adjustment)
-    - Algorithm choice (Minimax vs Alpha-Beta)
-    - Visual feedback and animations
-    - Score tracking
-    - Game statistics
-    """
-    
+        
     def __init__(self, root):
         self.root = root
         self.root.title("Connect Four - AI Challenge")
@@ -750,7 +740,6 @@ class ConnectFourGUI:
             ).grid(row=0, column=col)
     
     def draw_board(self):
-        """Draw the game board."""
         self.canvas.delete("all")
         
         # Draw grid and pieces
@@ -789,7 +778,6 @@ class ConnectFourGUI:
                 )
     
     def handle_hover(self, event):
-        """Handle mouse hover to show preview."""
         if self.game_over or self.thinking or not self.player_turn:
             return
         
@@ -800,7 +788,6 @@ class ConnectFourGUI:
             self.canvas.config(cursor="")
     
     def handle_click(self, event):
-        """Handle mouse click to make a move."""
         if self.game_over or self.thinking or not self.player_turn:
             return
         
@@ -810,7 +797,6 @@ class ConnectFourGUI:
             self.make_player_move(col)
     
     def make_player_move(self, col):
-        """Execute player's move."""
         self.game.make_move(col, 1)
         self.draw_board()
         
@@ -824,7 +810,6 @@ class ConnectFourGUI:
         threading.Thread(target=self.make_ai_move, daemon=True).start()
     
     def make_ai_move(self):
-        """Execute AI's move."""
         self.thinking = True
         
         try:
@@ -838,7 +823,6 @@ class ConnectFourGUI:
             self.thinking = False
     
     def complete_ai_move(self, move, metrics):
-        """Complete AI move and update display."""
         self.game.make_move(move, 2)
         self.draw_board()
         
@@ -853,7 +837,6 @@ class ConnectFourGUI:
         self.thinking = False
     
     def check_game_over(self):
-        """Check if game is over and handle end game."""
         if not self.game.is_game_done():
             return False
         
@@ -880,7 +863,6 @@ class ConnectFourGUI:
         return True
     
     def new_game(self):
-        """Start a new game."""
         self.game = ConnectFour()
         self.update_algorithm()
         self.player_turn = True
@@ -890,7 +872,6 @@ class ConnectFourGUI:
         self.update_status("Your Turn!")
     
     def update_algorithm(self):
-        """Update AI algorithm."""
         self.use_alphabeta = (self.algo_var.get() == "alphabeta")
         
         if self.use_alphabeta:
@@ -899,7 +880,6 @@ class ConnectFourGUI:
             self.ai_agent = MinimaxAgent(self.game, max_depth=self.ai_depth)
     
     def update_depth(self, value):
-        """Update AI search depth."""
         self.ai_depth = int(value)
         
         difficulty_names = {
@@ -917,16 +897,13 @@ class ConnectFourGUI:
         self.update_algorithm()
     
     def update_status(self, message):
-        """Update status message."""
         self.status_label.config(text=message)
         self.root.update()
     
     def update_stats(self):
-        """Update statistics display."""
         self.stats_label.config(text=self.get_stats_text())
     
     def get_stats_text(self):
-        """Get formatted statistics text."""
         return f"""Games Played: {self.stats['total_games']}
 Player Wins: {self.stats['player_wins']}
 AI Wins: {self.stats['ai_wins']}
@@ -935,7 +912,6 @@ Draws: {self.stats['draws']}
 Win Rate: {self.get_win_rate():.1f}%"""
     
     def get_win_rate(self):
-        """Calculate player win rate."""
         total = self.stats['total_games']
         if total == 0:
             return 0.0
